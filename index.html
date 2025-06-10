@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Honorarios Médicos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { background: #FFD700; padding: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+    th, td { border: 1px solid #999; padding: 6px 8px; }
+    th { background: #f0f0f0; }
+    td.numeric { text-align: right; }
+    input[type=number], input[type=range] { width: 100%; }
+    .controls { display: none; } /* escondemos los controles internos, ahora son las celdas de Valor */
+    .valor-input { width: 100px; }
+  </style>
+</head>
+<body>
+
+  <!-- BLOQUE GENÉRICO: CAT C, B, A -->
+  <!-- Cambia la letra en todos los id="-X" por C, B o A -->
+  <div id="sim-C">
+    <h2>CAT C</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Parámetro</th>
+          <th>Valor</th>
+          <th>Unidad</th>
+          <th>Concepto</th>
+          <th>Fórmula / Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Consultas por mes</td>
+          <td><input type="number" id="cons-C" class="valor-input" value="400" min="0"></td>
+          <td>N°</td>
+          <td>Ingreso mensual bruto</td>
+          <td class="numeric" id="f-bruto-C"></td>
+        </tr>
+        <tr>
+          <td>Valor por consulta (con suba 9% marzo)</td>
+          <td><input type="number" id="precio-C" class="valor-input" value="16350" min="0"></td>
+          <td>$</td>
+          <td>Ingreso máximo monotributo categ K</td>
+          <td class="numeric">6 864 190,11</td>
+        </tr>
+        <tr>
+          <td>Pago componente impositivo (Cat K)</td>
+          <td><input type="number" id="pagoK-C" class="valor-input" value="890325.83" step="0.01" min="0"></td>
+          <td>$</td>
+          <td>Pago componente impositivo</td>
+          <td class="numeric" id="f-pagoK-C"></td>
+        </tr>
+        <tr>
+          <td>% Ingresos Brutos (estimado)</td>
+          <td><input type="number" id="iibb-C" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td>
+          <td>%</td>
+          <td>Ingresos Brutos</td>
+          <td class="numeric" id="f-iibb-C"></td>
+        </tr>
+        <tr>
+          <td>% Caja médica + IIBB (fijo + 5%)</td>
+          <td><input type="number" id="cajaI-C" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td>
+          <td>%</td>
+          <td>Caja médica + IIBB</td>
+          <td class="numeric" id="f-cajaI-C"></td>
+        </tr>
+        <tr>
+          <td>Canasta básica hogar 4 integrantes</td>
+          <td><input type="number" id="canasta-C" class="valor-input" value="1057923" min="0"></td>
+          <td>$</td>
+          <td>Ingreso neto</td>
+          <td class="numeric" id="f-neto-C"></td>
+        </tr>
+        <tr>
+          <td>Consultas por día</td>
+          <td><input type="number" id="consDia-C" class="valor-input" value="20" min="0"></td>
+          <td></td>
+          <td>Relación ingreso neto / canasta</td>
+          <td class="numeric" id="f-ratio-C"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Repite exactamente el bloque anterior para CAT B y CAT A, cambiando sólo la letra C → B y C → A en todos los id y en el <h2> -->
+  <div id="sim-B">
+    <h2>CAT B</h2>
+    <table>
+      <thead>
+        <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Consultas por mes</td><td><input type="number" id="cons-B" class="valor-input" value="400" min="0"></td><td>N°</td><td>Ingreso mensual bruto</td><td class="numeric" id="f-bruto-B"></td></tr>
+        <tr><td>Valor por consulta (con suba 9% marzo)</td><td><input type="number" id="precio-B" class="valor-input" value="13080" min="0"></td><td>$</td><td>Ingreso máximo monotributo categ K</td><td class="numeric">6 864 190,11</td></tr>
+        <tr><td>Pago componente impositivo (Cat K)</td><td><input type="number" id="pagoK-B" class="valor-input" value="890325.83" step="0.01" min="0"></td><td>$</td><td>Pago componente impositivo</td><td class="numeric" id="f-pagoK-B"></td></tr>
+        <tr><td>% Ingresos Brutos (estimado)</td><td><input type="number" id="iibb-B" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td><td>%</td><td>Ingresos Brutos</td><td class="numeric" id="f-iibb-B"></td></tr>
+        <tr><td>% Caja médica + IIBB (fijo + 5%)</td><td><input type="number" id="cajaI-B" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td><td>%</td><td>Caja médica + IIBB</td><td class="numeric" id="f-cajaI-B"></td></tr>
+        <tr><td>Canasta básica hogar 4 integrantes</td><td><input type="number" id="canasta-B" class="valor-input" value="1057923" min="0"></td><td>$</td><td>Ingreso neto</td><td class="numeric" id="f-neto-B"></td></tr>
+        <tr><td>Consultas por día</td><td><input type="number" id="consDia-B" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-B"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="sim-A">
+    <h2>CAT A</h2>
+    <table>
+      <thead>
+        <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Consultas por mes</td><td><input type="number" id="cons-A" class="valor-input" value="400" min="0"></td><td>N°</td><td>Ingreso mensual bruto</td><td class="numeric" id="f-bruto-A"></td></tr>
+        <tr><td>Valor por consulta (con suba 9% marzo)</td><td><input type="number" id="precio-A" class="valor-input" value="10900" min="0"></td><td>$</td><td>Ingreso máximo monotributo categ K</td><td class="numeric">6 864 190,11</td></tr>
+        <tr><td>Pago componente impositivo (Cat K)</td><td><input type="number" id="pagoK-A" class="valor-input" value="890325.83" step="0.01" min="0"></td><td>$</td><td>Pago componente impositivo</td><td class="numeric" id="f-pagoK-A"></td></tr>
+        <tr><td>% Ingresos Brutos (estimado)</td><td><input type="number" id="iibb-A" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td><td>%</td><td>Ingresos Brutos</td><td class="numeric" id="f-iibb-A"></td></tr>
+        <tr><td>% Caja médica + IIBB (fijo + 5%)</td><td><input type="number" id="cajaI-A" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td><td>%</td><td>Caja médica + IIBB</td><td class="numeric" id="f-cajaI-A"></td></tr>
+        <tr><td>Canasta básica hogar 4 integrantes</td><td><input type="number" id="canasta-A" class="valor-input" value="1057923" min="0"></td><td>$</td><td>Ingreso neto</td><td class="numeric" id="f-neto-A"></td></tr>
+        <tr><td>Consultas por día</td><td><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-A"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function setupCategory(letter) {
+      const val = id => parseFloat(document.getElementById(id + '-' + letter).value) || 0;
+      const setText = (id, txt) => document.getElementById(id + '-' + letter).innerText = txt;
+      function recalc() {
+        const c     = val('cons');
+        const p     = val('precio');
+        const pagoK = val('pagoK');
+        const iibbP = val('iibb') / 100;
+        const cajaP = val('cajaI') / 100;
+        const canasta = val('canasta');
+
+        const bruto = c * p;
+        const impIibb = bruto * iibbP;
+        const impCaja = bruto * cajaP;
+        const totalPagos = pagoK + impIibb + impCaja;
+        const neto = bruto - totalPagos;
+        const ratio = canasta > 0 ? (neto / canasta) : 0;
+
+        setText('f-bruto', bruto.toLocaleString('es-AR', {minimumFractionDigits:2}));
+        setText('f-pagoK', pagoK.toLocaleString('es-AR', {minimumFractionDigits:2}));
+        setText('f-iibb', impIibb.toLocaleString('es-AR', {minimumFractionDigits:2}));
+        setText('f-cajaI', impCaja.toLocaleString('es-AR', {minimumFractionDigits:2}));
+        setText('f-neto', neto.toLocaleString('es-AR', {minimumFractionDigits:2}));
+        setText('f-ratio', ratio.toFixed(2));
+      }
+      // attach listeners to all inputs in this category
+      ['cons','precio','pagoK','iibb','cajaI','canasta','consDia'].forEach(id => {
+        document.getElementById(id + '-' + letter)
+          .addEventListener('input', recalc);
+      });
+      recalc();
+    }
+
+    ['C','B','A'].forEach(setupCategory);
+  </script>
+
+</body>
+</html>
