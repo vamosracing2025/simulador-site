@@ -79,7 +79,22 @@
   </style>
 </head>
 <body>
-
+<!-- 1) Formulario de login -->
+  <div id="login" style="max-width:300px;margin:2rem auto;">
+    <h2>Acceso al simulador</h2>
+    <label>
+      Usuario:<br>
+      <input type="text" id="login-user">
+    </label><br><br>
+    <label>
+      Contraseña:<br>
+      <input type="password" id="login-pass">
+    </label><br><br>
+    <button id="login-btn">Ingresar</button>
+    <p id="login-error" style="color:red;display:none;">Usuario o contraseña incorrectos</p>
+  </div>
+  <!-- 2) Aquí va TODO tu simulador, ahora oculto -->
+<div id="app" style="display:none;">
   <!-- BLOQUE GENÉRICO: CAT C, B, A -->
   <!-- Cambia la letra en todos los id="-X" por C, B o A -->
   <div id="sim-C">
@@ -186,10 +201,32 @@
         <tr><td>% Caja médica + IIBB (fijo + 5%)</td><td><input type="number" id="cajaI-A" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td><td>%</td><td>Caja médica + IIBB</td><td class="numeric" id="f-cajaI-A"></td></tr>
         <tr><td>Canasta básica hogar 4 integrantes</td><td><input type="number" id="canasta-A" class="valor-input" value="1057923" min="0"></td><td>$</td><td>Ingreso neto</td><td class="numeric" id="f-neto-A"></td></tr>
         <tr><td>Consultas por día</td><td><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-A"></td></tr>
+      
+      
+  <script>
+    // Credenciales “hardcodeadas” (ojo: esto NO es seguro en producción)
+    const VALID_USER = 'admin';
+    const VALID_PASS = 'secreto123';
+
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const u = document.getElementById('login-user').value;
+      const p = document.getElementById('login-pass').value;
+      if (u === VALID_USER && p === VALID_PASS) {
+        // oculta login y muestra app
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('app').style.display   = 'block';
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    });
+  </script>
+      
       </tbody>
     </table>
     </div>
   </div>
+</div>
+
 
   <script>
     function setupCategory(letter) {
