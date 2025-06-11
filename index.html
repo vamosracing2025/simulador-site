@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Simulador de Honorarios Médicos</title>
+  <title><meta name="viewport" content="width=device-width, initial-scale=1">
+Simulador de Honorarios Médicos</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h2 { background: #FFD700; padding: 8px; }
@@ -13,6 +14,31 @@
     input[type=number], input[type=range] { width: 100%; }
     .controls { display: none; } /* escondemos los controles internos, ahora son las celdas de Valor */
     .valor-input { width: 100px; }
+
+    /* Hace que la tabla pueda scrollear horizontalmente en pantallas estrechas */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    /* Que las tablas ocupen al menos todo el ancho disponible */
+    table {
+      width: 100%;
+      table-layout: auto;
+    }
+
+    /* Ajustes de padding y tamaño de fuente en móviles */
+    @media (max-width: 600px) {
+      th, td {
+        padding: 4px 6px;
+        font-size: 0.85rem;
+      }
+      .valor-input {
+        width: 100%;
+      }
+    }
+
+
   </style>
 </head>
 <body>
@@ -21,6 +47,7 @@
   <!-- Cambia la letra en todos los id="-X" por C, B o A -->
   <div id="sim-C">
     <h2>CAT C</h2>
+    <div class="table-wrapper">
     <table>
       <thead>
         <tr>
@@ -84,10 +111,12 @@
       </tbody>
     </table>
   </div>
+  </div>
 
   <!-- Repite exactamente el bloque anterior para CAT B y CAT A, cambiando sólo la letra C → B y C → A en todos los id y en el <h2> -->
   <div id="sim-B">
     <h2>CAT B</h2>
+    <div class="table-wrapper">
     <table>
       <thead>
         <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
@@ -102,10 +131,12 @@
         <tr><td>Consultas por día</td><td><input type="number" id="consDia-B" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-B"></td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <div id="sim-A">
     <h2>CAT A</h2>
+    <div class="table-wrapper">
     <table>
       <thead>
         <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
@@ -120,6 +151,7 @@
         <tr><td>Consultas por día</td><td><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-A"></td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <script>
