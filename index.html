@@ -97,112 +97,203 @@
 <div id="app" style="display:none;">
   <!-- BLOQUE GENÉRICO: CAT C, B, A -->
   <!-- Cambia la letra en todos los id="-X" por C, B o A -->
-  <div id="sim-C">
-    <h2>CAT C</h2>
-    <div class="table-wrapper">
+  
+  <!-- === CAT C === -->
+<div id="sim-C">
+  <h2>CAT C</h2>
+  <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Parámetro</th>
-          <th>Valor</th>
-          <th>Unidad</th>
-          <th>Concepto</th>
-          <th>Fórmula / Resultado</th>
+          <th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Consultas por mes</td>
-          <td><input type="number" id="cons-C" class="valor-input" value="400" min="0"></td>
-          <td>N°</td>
-          <td>Ingreso mensual bruto</td>
-          <td class="numeric" id="f-bruto-C"></td>
+          <td data-label="Parámetro">Consultas por mes</td>
+          <td data-label="Valor"><input type="number" id="cons-C" class="valor-input" value="400" min="0"></td>
+          <td data-label="Unidad">N°</td>
+          <td data-label="Concepto">Ingreso mensual bruto</td>
+          <td data-label="Resultado" class="numeric" id="f-bruto-C"></td>
         </tr>
         <tr>
-          <td>Valor por consulta (con suba 9% marzo)</td>
-          <td><input type="number" id="precio-C" class="valor-input" value="16350" min="0"></td>
-          <td>$</td>
-          <td>Ingreso máximo monotributo categ K</td>
-          <td class="numeric">6 864 190,11</td>
+          <td data-label="Parámetro">Valor por consulta</td>
+          <td data-label="Valor"><input type="number" id="precio-C" class="valor-input" value="16350" min="0"></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso máximo monotributo categ K</td>
+          <td data-label="Resultado" class="numeric">6 864 190,11</td>
         </tr>
         <tr>
-          <td>Pago componente impositivo (Cat K)</td>
-          <td><input type="number" id="pagoK-C" class="valor-input" value="890325.83" step="0.01" min="0"></td>
-          <td>$</td>
-          <td>Pago componente impositivo</td>
-          <td class="numeric" id="f-pagoK-C"></td>
+          <td data-label="Parámetro">Pago componente impositivo (Cat K)</td>
+          <td data-label="Valor"><input type="number" id="pagoK-C" class="valor-input" value="890325.83" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Pago componente impositivo</td>
+          <td data-label="Resultado" class="numeric" id="f-pagoK-C"></td>
         </tr>
         <tr>
-          <td>% Ingresos Brutos (estimado)</td>
-          <td><input type="number" id="iibb-C" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td>
-          <td>%</td>
-          <td>Ingresos Brutos</td>
-          <td class="numeric" id="f-iibb-C"></td>
+          <td data-label="Parámetro">% Ingresos Brutos (estimado)</td>
+          <td data-label="Valor"><input type="number" id="iibb-C" class="valor-input" value="3.50" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Ingresos Brutos</td>
+          <td data-label="Resultado" class="numeric" id="f-iibb-C"></td>
         </tr>
         <tr>
-          <td>% Caja médica + IIBB (fijo + 5%)</td>
-          <td><input type="number" id="cajaI-C" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td>
-          <td>%</td>
-          <td>Caja médica + IIBB</td>
-          <td class="numeric" id="f-cajaI-C"></td>
+          <td data-label="Parámetro">% Caja médica + IIBB</td>
+          <td data-label="Valor"><input type="number" id="cajaI-C" class="valor-input" value="7.93" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Caja médica + IIBB</td>
+          <td data-label="Resultado" class="numeric" id="f-cajaI-C"></td>
         </tr>
         <tr>
-          <td>Canasta básica hogar 4 integrantes</td>
-          <td><input type="number" id="canasta-C" class="valor-input" value="1057923" min="0"></td>
-          <td>$</td>
-          <td>Ingreso neto</td>
-          <td class="numeric" id="f-neto-C"></td>
+          <td data-label="Parámetro">Canasta básica hogar 4 integrantes</td>
+          <td data-label="Valor"><input type="number" id="canasta-C" class="valor-input" value="1110063" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso neto</td>
+          <td data-label="Resultado" class="numeric" id="f-neto-C"></td>
         </tr>
         <tr>
-          <td>Consultas por día</td>
-          <td><input type="number" id="consDia-C" class="valor-input" value="20" min="0"></td>
-          <td></td>
-          <td>Relación ingreso neto / canasta</td>
-          <td class="numeric" id="f-ratio-C"></td>
+          <td data-label="Parámetro">Consultas por día</td>
+          <td data-label="Valor"><input type="number" id="consDia-C" class="valor-input" value="20" min="0"></td>
+          <td data-label="Unidad"></td>
+          <td data-label="Concepto">Relación ingreso neto / canasta</td>
+          <td data-label="Resultado" class="numeric" id="f-ratio-C"></td>
         </tr>
       </tbody>
     </table>
   </div>
-  </div>
+</div>
 
-  <!-- Repite exactamente el bloque anterior para CAT B y CAT A, cambiando sólo la letra C → B y C → A en todos los id y en el <h2> -->
-  <div id="sim-B">
-    <h2>CAT B</h2>
-    <div class="table-wrapper">
+<!-- === CAT B === -->
+<div id="sim-B">
+  <h2>CAT B</h2>
+  <div class="table-wrapper">
     <table>
       <thead>
-        <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
+        <tr>
+          <th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th>
+        </tr>
       </thead>
       <tbody>
-        <tr><td>Consultas por mes</td><td><input type="number" id="cons-B" class="valor-input" value="400" min="0"></td><td>N°</td><td>Ingreso mensual bruto</td><td class="numeric" id="f-bruto-B"></td></tr>
-        <tr><td>Valor por consulta (con suba 9% marzo)</td><td><input type="number" id="precio-B" class="valor-input" value="13080" min="0"></td><td>$</td><td>Ingreso máximo monotributo categ K</td><td class="numeric">6 864 190,11</td></tr>
-        <tr><td>Pago componente impositivo (Cat K)</td><td><input type="number" id="pagoK-B" class="valor-input" value="890325.83" step="0.01" min="0"></td><td>$</td><td>Pago componente impositivo</td><td class="numeric" id="f-pagoK-B"></td></tr>
-        <tr><td>% Ingresos Brutos (estimado)</td><td><input type="number" id="iibb-B" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td><td>%</td><td>Ingresos Brutos</td><td class="numeric" id="f-iibb-B"></td></tr>
-        <tr><td>% Caja médica + IIBB (fijo + 5%)</td><td><input type="number" id="cajaI-B" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td><td>%</td><td>Caja médica + IIBB</td><td class="numeric" id="f-cajaI-B"></td></tr>
-        <tr><td>Canasta básica hogar 4 integrantes</td><td><input type="number" id="canasta-B" class="valor-input" value="1057923" min="0"></td><td>$</td><td>Ingreso neto</td><td class="numeric" id="f-neto-B"></td></tr>
-        <tr><td>Consultas por día</td><td><input type="number" id="consDia-B" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-B"></td></tr>
+        <tr>
+          <td data-label="Parámetro">Consultas por mes</td>
+          <td data-label="Valor"><input type="number" id="cons-B" class="valor-input" value="400" min="0"></td>
+          <td data-label="Unidad">N°</td>
+          <td data-label="Concepto">Ingreso mensual bruto</td>
+          <td data-label="Resultado" class="numeric" id="f-bruto-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Valor por consulta</td>
+          <td data-label="Valor"><input type="number" id="precio-B" class="valor-input" value="13080" min="0"></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso máximo monotributo categ K</td>
+          <td data-label="Resultado" class="numeric">6 864 190,11</td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Pago componente impositivo (Cat K)</td>
+          <td data-label="Valor"><input type="number" id="pagoK-B" class="valor-input" value="890325.83" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Pago componente impositivo</td>
+          <td data-label="Resultado" class="numeric" id="f-pagoK-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">% Ingresos Brutos (estimado)</td>
+          <td data-label="Valor"><input type="number" id="iibb-B" class="valor-input" value="3.50" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Ingresos Brutos</td>
+          <td data-label="Resultado" class="numeric" id="f-iibb-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">% Caja médica + IIBB</td>
+          <td data-label="Valor"><input type="number" id="cajaI-B" class="valor-input" value="7.93" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Caja médica + IIBB</td>
+          <td data-label="Resultado" class="numeric" id="f-cajaI-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Canasta básica hogar 4 integrantes</td>
+          <td data-label="Valor"><input type="number" id="canasta-B" class="valor-input" value="1110063" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso neto</td>
+          <td data-label="Resultado" class="numeric" id="f-neto-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Consultas por día</td>
+          <td data-label="Valor"><input type="number" id="consDia-B" class="valor-input" value="20" min="0"></td>
+          <td data-label="Unidad"></td>
+          <td data-label="Concepto">Relación ingreso neto / canasta</td>
+          <td data-label="Resultado" class="numeric" id="f-ratio-B"></td>
+        </tr>
       </tbody>
     </table>
-    </div>
   </div>
+</div>
 
-  <div id="sim-A">
-    <h2>CAT A</h2>
-    <div class="table-wrapper">
+<!-- === CAT A === -->
+<div id="sim-A">
+  <h2>CAT A</h2>
+  <div class="table-wrapper">
     <table>
       <thead>
-        <tr><th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th></tr>
+        <tr>
+          <th>Parámetro</th><th>Valor</th><th>Unidad</th><th>Concepto</th><th>Fórmula / Resultado</th>
+        </tr>
       </thead>
       <tbody>
-        <tr><td>Consultas por mes</td><td><input type="number" id="cons-A" class="valor-input" value="400" min="0"></td><td>N°</td><td>Ingreso mensual bruto</td><td class="numeric" id="f-bruto-A"></td></tr>
-        <tr><td>Valor por consulta (con suba 9% marzo)</td><td><input type="number" id="precio-A" class="valor-input" value="10900" min="0"></td><td>$</td><td>Ingreso máximo monotributo categ K</td><td class="numeric">6 864 190,11</td></tr>
-        <tr><td>Pago componente impositivo (Cat K)</td><td><input type="number" id="pagoK-A" class="valor-input" value="890325.83" step="0.01" min="0"></td><td>$</td><td>Pago componente impositivo</td><td class="numeric" id="f-pagoK-A"></td></tr>
-        <tr><td>% Ingresos Brutos (estimado)</td><td><input type="number" id="iibb-A" class="valor-input" value="3.50" step="0.01" min="0" max="100"></td><td>%</td><td>Ingresos Brutos</td><td class="numeric" id="f-iibb-A"></td></tr>
-        <tr><td>% Caja médica + IIBB (fijo + 5%)</td><td><input type="number" id="cajaI-A" class="valor-input" value="7.93" step="0.01" min="0" max="100"></td><td>%</td><td>Caja médica + IIBB</td><td class="numeric" id="f-cajaI-A"></td></tr>
-        <tr><td>Canasta básica hogar 4 integrantes</td><td><input type="number" id="canasta-A" class="valor-input" value="1057923" min="0"></td><td>$</td><td>Ingreso neto</td><td class="numeric" id="f-neto-A"></td></tr>
-        <tr><td>Consultas por día</td><td><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td><td></td><td>Relación ingreso neto / canasta</td><td class="numeric" id="f-ratio-A"></td></tr>
-      
-      
+        <tr>
+          <td data-label="Parámetro">Consultas por mes</td>
+          <td data-label="Valor"><input type="number" id="cons-A" class="valor-input" value="400" min="0"></td>
+          <td data-label="Unidad">N°</td>
+          <td data-label="Concepto">Ingreso mensual bruto</td>
+          <td data-label="Resultado" class="numeric" id="f-bruto-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Valor por consulta</td>
+          <td data-label="Valor"><input type="number" id="precio-A" class="valor-input" value="10900" min="0"></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso máximo monotributo categ K</td>
+          <td data-label="Resultado" class="numeric">6 864 190,11</td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Pago componente impositivo (Cat K)</td>
+          <td data-label="Valor"><input type="number" id="pagoK-A" class="valor-input" value="890325.83" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Pago componente impositivo</td>
+          <td data-label="Resultado" class="numeric" id="f-pagoK-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">% Ingresos Brutos (estimado)</td>
+          <td data-label="Valor"><input type="number" id="iibb-A" class="valor-input" value="3.50" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Ingresos Brutos</td>
+          <td data-label="Resultado" class="numeric" id="f-iibb-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">% Caja médica + IIBB</td>
+          <td data-label="Valor"><input type="number" id="cajaI-A" class="valor-input" value="7.93" readonly></td>
+          <td data-label="Unidad">%</td>
+          <td data-label="Concepto">Caja médica + IIBB</td>
+          <td data-label="Resultado" class="numeric" id="f-cajaI-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Canasta básica hogar 4 integrantes</td>
+          <td data-label="Valor"><input type="number" id="canasta-A" class="valor-input" value="1110063" readonly></td>
+          <td data-label="Unidad">$</td>
+          <td data-label="Concepto">Ingreso neto</td>
+          <td data-label="Resultado" class="numeric" id="f-neto-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Consultas por día</td>
+          <td data-label="Valor"><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td>
+          <td data-label="Unidad"></td>
+          <td data-label="Concepto">Relación ingreso neto / canasta</td>
+          <td data-label="Resultado" class="numeric" id="f-ratio-A"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  
   <script>
     // Credenciales “hardcodeadas” (ojo: esto NO es seguro en producción)
     const VALID_USER = 'admin';
