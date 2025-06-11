@@ -6,7 +6,7 @@
   <title>Simulador de Honorarios Médicos</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
-    h2 { background: #FFD700; padding: 8px; }
+    h2 { background: #87CEEB; padding: 8px; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
     th, td { border: 1px solid #999; padding: 6px 8px; }
     th { background: #f0f0f0; }
@@ -63,8 +63,8 @@
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50%;
-        text-align: right;
+        padding-left: 0.5rem;
+        text-align: left;
       }
       .table-wrapper td:before {
         content: attr(data-label);
@@ -153,7 +153,14 @@
         </tr>
         <tr>
           <td data-label="Parámetro">Consultas por día</td>
-          <td data-label="Valor"><input type="number" id="consDia-C" class="valor-input" value="20" min="0"></td>
+          <td data-label="Valor"><!-- no editable --></td>
+          <td data-label="Unidad">días</td>
+          <td data-label="Concepto">Consultas por día (mes/20)</td>
+          <td data-label="Resultado" class="numeric" id="f-consDia-C"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Relación ingreso neto / canasta</td>
+          <td data-label="Valor"><!-- no editable --></td>
           <td data-label="Unidad"></td>
           <td data-label="Concepto">Relación ingreso neto / canasta</td>
           <td data-label="Resultado" class="numeric" id="f-ratio-C"></td>
@@ -218,7 +225,14 @@
         </tr>
         <tr>
           <td data-label="Parámetro">Consultas por día</td>
-          <td data-label="Valor"><input type="number" id="consDia-B" class="valor-input" value="20" min="0"></td>
+          <td data-label="Valor"><!-- no editable --></td>
+          <td data-label="Unidad">días</td>
+          <td data-label="Concepto">Consultas por día (mes/20)</td>
+          <td data-label="Resultado" class="numeric" id="f-consDia-B"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Relación ingreso neto / canasta</td>
+          <td data-label="Valor"><!-- no editable --></td>
           <td data-label="Unidad"></td>
           <td data-label="Concepto">Relación ingreso neto / canasta</td>
           <td data-label="Resultado" class="numeric" id="f-ratio-B"></td>
@@ -283,7 +297,14 @@
         </tr>
         <tr>
           <td data-label="Parámetro">Consultas por día</td>
-          <td data-label="Valor"><input type="number" id="consDia-A" class="valor-input" value="20" min="0"></td>
+          <td data-label="Valor"><!-- no editable --></td>
+          <td data-label="Unidad">días</td>
+          <td data-label="Concepto">Consultas por día (mes/20)</td>
+          <td data-label="Resultado" class="numeric" id="f-consDia-A"></td>
+        </tr>
+        <tr>
+          <td data-label="Parámetro">Relación ingreso neto / canasta</td>
+          <td data-label="Valor"><!-- no editable --></td>
           <td data-label="Unidad"></td>
           <td data-label="Concepto">Relación ingreso neto / canasta</td>
           <td data-label="Resultado" class="numeric" id="f-ratio-A"></td>
@@ -319,42 +340,48 @@
 </div>
 
 
-  <script>
-    function setupCategory(letter) {
-      const val = id => parseFloat(document.getElementById(id + '-' + letter).value) || 0;
-      const setText = (id, txt) => document.getElementById(id + '-' + letter).innerText = txt;
-      function recalc() {
-        const c     = val('cons');
-        const p     = val('precio');
-        const pagoK = val('pagoK');
-        const iibbP = val('iibb') / 100;
-        const cajaP = val('cajaI') / 100;
-        const canasta = val('canasta');
+<script>
+  function setupCategory(letter) {
+    const val = id => parseFloat(document.getElementById(id + '-' + letter).value) || 0;
+    const setText = (id, txt) =>
+      document.getElementById(id + '-' + letter).innerText = txt;
 
-        const bruto = c * p;
-        const impIibb = bruto * iibbP;
-        const impCaja = bruto * cajaP;
-        const totalPagos = pagoK + impIibb + impCaja;
-        const neto = bruto - totalPagos;
-        const ratio = canasta > 0 ? (neto / canasta) : 0;
+    function recalc() {
+      const c       = val('cons');
+      const p       = val('precio');
+      const pagoK   = val('pagoK');
+      const iibbP   = val('iibb') / 100;
+      const cajaP   = val('cajaI') / 100;
+      const canasta = val('canasta');
 
-        setText('f-bruto', bruto.toLocaleString('es-AR', {minimumFractionDigits:2}));
-        setText('f-pagoK', pagoK.toLocaleString('es-AR', {minimumFractionDigits:2}));
-        setText('f-iibb', impIibb.toLocaleString('es-AR', {minimumFractionDigits:2}));
-        setText('f-cajaI', impCaja.toLocaleString('es-AR', {minimumFractionDigits:2}));
-        setText('f-neto', neto.toLocaleString('es-AR', {minimumFractionDigits:2}));
-        setText('f-ratio', ratio.toFixed(2));
-      }
-      // attach listeners to all inputs in this category
-      ['cons','precio','pagoK','iibb','cajaI','canasta','consDia'].forEach(id => {
-        document.getElementById(id + '-' + letter)
-          .addEventListener('input', recalc);
-      });
-      recalc();
+      const bruto    = c * p;
+      const impIibb  = bruto * iibbP;
+      const impCaja  = bruto * cajaP;
+      const total    = pagoK + impIibb + impCaja;
+      const neto     = bruto - total;
+      const ratio    = canasta > 0 ? (neto / canasta) : 0;
+      const dias1012 = 20;
+      const diario   = dias1012 > 0 ? (c / dias1012) : 0;
+
+      setText('f-bruto',   bruto.toLocaleString('es-AR',{minimumFractionDigits:2}));
+      setText('f-pagoK',   pagoK.toLocaleString('es-AR',{minimumFractionDigits:2}));
+      setText('f-iibb',    impIibb.toLocaleString('es-AR',{minimumFractionDigits:2}));
+      setText('f-cajaI',   impCaja.toLocaleString('es-AR',{minimumFractionDigits:2}));
+      setText('f-neto',    neto.toLocaleString('es-AR',{minimumFractionDigits:2}));
+      setText('f-consDia', diario.toFixed(2));
+      setText('f-ratio',   ratio.toFixed(2));
     }
 
-    ['C','B','A'].forEach(setupCategory);
-  </script>
+    // Sólo attach a los inputs editables
+    ['cons','precio','pagoK','iibb','cajaI','canasta'].forEach(id =>
+      document.getElementById(id + '-' + letter).addEventListener('input', recalc)
+    );
+    recalc();
+  }
+
+  ['C','B','A'].forEach(setupCategory);
+</script>
+
 
 </body>
 </html>
