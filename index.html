@@ -38,7 +38,44 @@
       }
     }
 
-
+/* En pantallas muy angostas, convertimos cada fila en un “card” */
+    @media (max-width: 600px) {
+      .table-wrapper table,
+      .table-wrapper thead,
+      .table-wrapper tbody,
+      .table-wrapper th,
+      .table-wrapper td,
+      .table-wrapper tr {
+        display: block;
+      }
+      /* Ocultamos la cabecera */
+      .table-wrapper thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      .table-wrapper tr {
+        border: 1px solid #ccc;
+        margin: .5rem 0;
+        padding: .5rem;
+      }
+      .table-wrapper td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+      }
+      .table-wrapper td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: .5rem;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+      }
+    }
   </style>
 </head>
 <body>
