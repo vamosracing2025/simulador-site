@@ -5,29 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Simulador de Honorarios Médicos</title>
   <style>
+    /* Reset básico */
     body { font-family: Arial, sans-serif; margin: 20px; }
-    h2 { background: #87CEEB; padding: 8px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
-    th, td { border: 1px solid #999; padding: 6px 8px; }
-    th { background: #f0f0f0; }
-    td.numeric { text-align: right; }
-    input[type=number], input[type=range] { width: 100%; }
-    .controls { display: none; } /* escondemos los controles internos, ahora son las celdas de Valor */
-    .valor-input { width: 100px; }
 
-    /* Hace que la tabla pueda scrollear horizontalmente en pantallas estrechas */
+    /* Título con celeste */
+    h2 { background: #87CEEB; padding: 8px; }
+
+    /* Tablas a ancho completo */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      /* Evita que las celdas se partan */
+      white-space: nowrap;
+      table-layout: auto;
+      margin-bottom: 40px;
+    }
+
+    /* Bordes y padding de celdas */
+    th, td {
+      border: 1px solid #999;
+      padding: 6px 8px;
+    }
+    th {
+      background: #f0f0f0;
+    }
+    td.numeric {
+      text-align: right;
+    }
+
+    /* Inputs y sliders */
+    input[type=number],
+    input[type=range] {
+      width: 100%;
+    }
+    .valor-input {
+      width: 100px;
+    }
+    .controls { display: none; }
+
+    /* Scroll horizontal en móvil */
     .table-wrapper {
       overflow-x: auto;
       margin-bottom: 1rem;
     }
 
-    /* Que las tablas ocupen al menos todo el ancho disponible */
-    table {
-      width: 100%;
-      table-layout: auto;
-    }
-
-    /* Ajustes de padding y tamaño de fuente en móviles */
+    /* Ajustes de padding y fuente en móviles (opcional) */
     @media (max-width: 600px) {
       th, td {
         padding: 4px 6px;
@@ -38,8 +60,8 @@
       }
     }
 
-/* En pantallas muy angostas, convertimos cada fila en un “card” */
-   /* @media (max-width: 600px) {
+    /* --- ELIMINADO el card layout que rompía la tabla ---
+    @media (max-width: 600px) {
       .table-wrapper table,
       .table-wrapper thead,
       .table-wrapper tbody,
@@ -47,37 +69,13 @@
       .table-wrapper td,
       .table-wrapper tr {
         display: block;
-      }*/
-      /* Ocultamos la cabecera */
-      .table-wrapper thead tr { 
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
       }
-      .table-wrapper tr {
-        border: 1px solid #ccc;
-        margin: .5rem 0;
-        padding: .5rem;
-      }
-      .table-wrapper td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 0.5rem;
-        text-align: left;
-      }
-      .table-wrapper td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: .5rem;
-        width: 45%;
-        white-space: nowrap;
-        font-weight: bold;
-        text-align: left;
-      }
+      …
     }
+    ------------------------------------------------------ */
   </style>
 </head>
+
 <body>
 <!-- 1) Formulario de login -->
   <div id="login" style="max-width:300px;margin:2rem auto;">
